@@ -1,0 +1,12 @@
+# Created by venv; see https://docs.python.org/3/library/venv.html
+# Ignore virtual environment
+env/
+venv/
+
+# Ignore environment variable file
+.env
+
+# Django/Python defaults 
+*.pyc
+__pycache__/
+db.sqlite3
