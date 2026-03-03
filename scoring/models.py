@@ -1,4 +1,6 @@
 from decimal import Decimal
+from django.db import models
+from accounts.models import UserProfile
 
 def calculate_credit_score(features):
     score = 50  # baseline
@@ -29,3 +31,17 @@ def credit_decision(score):
         return "REVIEW"
     else:
         return "REJECTED"
+
+class CreditHistory(models.Model):
+    profile = models.ForeignKey(
+        UserProfile,
+        on_delete=models.CASCADE,
+        related_name="credit_history"
+    )
+    previous_score = models.IntegerField()
+    new_score = models.IntegerField()
+    reason = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.profile.user.username}: {self.previous_score} → {self.new_score}"

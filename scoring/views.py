@@ -69,3 +69,26 @@ def credit_dashboard(request, profile_id):
         "features": features,
         "total_transactions": transactions.count()
     })
+
+
+@api_view(["GET"])
+def credit_history_view(request, profile_id):
+    try:
+        profile = UserProfile.objects.get(id=profile_id)
+    except UserProfile.DoesNotExist:
+        return Response(
+            {"error": "User profile not found"},
+            status=status.HTTP_404_NOT_FOUND
+        )
+
+    history = profile.credit_history.order_by("-created_at")
+
+    return Response([
+        {
+            "previous_score": h.previous_score,
+            "new_score": h.new_score,
+            "reason": h.reason,
+            "date": h.created_at
+        }
+        for h in history
+    ])
