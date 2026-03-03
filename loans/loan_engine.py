@@ -11,3 +11,16 @@ def generate_loan_offer(score, persona):
         "interest_rate": 12 if score >= 70 else 18,
         "tenure_months": 6 if score >= 70 else 3
     }
+
+def update_score_with_repayment(current_score, repayment):
+    
+    #Adjusts the credit score based on repayment behavior.   
+    new_score = current_score
+
+    if repayment.on_time:
+        new_score += 5  # reward
+    else:
+        new_score -= 10  # penalty
+
+    # Clamp between 0 and 100
+    return max(0, min(new_score, 100))

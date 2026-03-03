@@ -17,6 +17,7 @@ class UserProfile(models.Model):
     phone_number = models.CharField(max_length=15, unique=True)
     persona = models.CharField(max_length=20, choices=PERSONA_CHOICES)
     date_joined = models.DateTimeField(auto_now_add=True)
+    current_credit_score = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     
     def __str__(self):
         return f"{self.user.username} - {self.persona}"

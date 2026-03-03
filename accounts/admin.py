@@ -9,5 +9,5 @@ def generate_transactions(modeladmin, request, queryset):
 
 @admin.register(UserProfile)
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'persona', 'phone_number', 'date_joined')
+    list_display = ('user', 'persona', 'phone_number', 'current_credit_score', 'date_joined')
     actions = [generate_transactions]
